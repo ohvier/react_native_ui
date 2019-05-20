@@ -4,6 +4,8 @@ import { requestPermissionsAsync } from "expo-location";
 import ActionButton from "react-native-action-button";
 import EventCard from "./EventCard";
 
+import { getEvents } from "./api";
+
 const styles = StyleSheet.create({
   list: {
     flex: 1,
@@ -25,11 +27,13 @@ class EventList extends Component {
         }))
       });
     }, 1000);
-    const events = require("./db.json").events.map(e => ({
-      ...e,
-      date: new Date(e.date)
-    }));
-    this.setState({ events });
+    // const events = require("./db.json").events.map(e => ({
+    //   ...e,
+    //   date: new Date(e.date)
+    // }));
+
+    getEvents().then(events => this.setState({ events }));
+    // this.setState({ events });
   }
 
   handleAddEvent = () => {
